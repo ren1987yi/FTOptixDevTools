@@ -1,30 +1,69 @@
 ﻿using System.Reflection.Metadata;
 using FigmaLink;
+using Newtonsoft.Json;
+using FigmaLink.Model;
+using FigmaLink.Extensions;
 // See https://aka.ms/new-console-template for more information
 Console.WriteLine("Hello, World!");
 
 var file =@"../../../../../src/Test/test/Test1.plugin.json";
-var doc = FigmaLink.Model.DocumentNode.LoadFile(file);
-foreach(var page in doc.Pages){
+KnownTypesBinder knownTypesBinder = new KnownTypesBinder
+{
+    KnownTypes = new List<Type> { typeof(BaseNode),typeof(DOCUMENT) ,typeof(PAGE)}
+};
 
-}
+
+
+var dd = new DOCUMENT();
+dd.id = "aa";
+
+string json =  JsonConvert.SerializeObject(dd, Formatting.Indented, new JsonSerializerSettings
+{
+    TypeNameHandling = TypeNameHandling.Objects,
+    SerializationBinder = knownTypesBinder
+});
 
 
 
-var a = FigmaLink.Document.LoadFile(file);
-// Console.WriteLine(a.id);
-// var aa = a.children;
-// Console.WriteLine(a.children);
+if(File.Exists(file)){
+    var txt = File.ReadAllText(file);
+    txt = txt.Replace("\"type\"","\"$type\"");
+    // var obj = JsonConvert.DeserializeObject<FigmaLink.Model.BaseNode>(txt,new JsonSerializerSettings{
+    //     ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
+    //     TypeNameHandling = TypeNameHandling.All
+    // });
 
-if(a.type == "document".ToUpper()){
 
-    Console.WriteLine($"Document name:{a.name}");
-    for(var i = 0;i<a.children.Count;i++){
-        var page = a.children[i];
-        if(page.type == "page".ToUpper()){
-            Console.WriteLine($"page name:{page.name}");
 
-            
-        }
-    }
+
+
+
+
+
+
+
+
+
+
+var obj = JsonConvert.DeserializeObject<DOCUMENT>(txt,new JsonSerializerSettings{
+      TypeNameHandling = TypeNameHandling.Objects,
+    SerializationBinder = knownTypesBinder
+    });
+
+    obj.Init();
+
+var aa = obj.GetComponents();
+
+var vv = aa[0].GetPropertyDefinitions;
+ vv = aa[1].GetPropertyDefinitions;
+
+//  obj = JsonConvert.DeserializeObject(json,new JsonSerializerSettings{
+//       TypeNameHandling = TypeNameHandling.Objects,
+//     SerializationBinder = knownTypesBinder
+//     });
+
+    
+    var xx = new List<BaseNode>();
+
+   
 }
