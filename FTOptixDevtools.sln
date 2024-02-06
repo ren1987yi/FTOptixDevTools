@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{72F67061-EB77-4FE1-9B96-E88CE52E439F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FigmaLink", "src\FigmaLink\FigmaLink.csproj", "{FA2FCB19-EEC7-4964-8B23-C463F286E867}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "src\Test\Test.csproj", "{F3FFC1BD-2068-430F-892E-A84794890997}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +16,19 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA2FCB19-EEC7-4964-8B23-C463F286E867}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA2FCB19-EEC7-4964-8B23-C463F286E867}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA2FCB19-EEC7-4964-8B23-C463F286E867}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA2FCB19-EEC7-4964-8B23-C463F286E867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3FFC1BD-2068-430F-892E-A84794890997}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3FFC1BD-2068-430F-892E-A84794890997}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3FFC1BD-2068-430F-892E-A84794890997}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3FFC1BD-2068-430F-892E-A84794890997}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FA2FCB19-EEC7-4964-8B23-C463F286E867} = {72F67061-EB77-4FE1-9B96-E88CE52E439F}
+		{F3FFC1BD-2068-430F-892E-A84794890997} = {72F67061-EB77-4FE1-9B96-E88CE52E439F}
 	EndGlobalSection
 EndGlobal
