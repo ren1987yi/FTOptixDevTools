@@ -35,16 +35,6 @@ if(File.Exists(file)){
 
 
 
-
-
-
-
-
-
-
-
-
-
 var obj = JsonConvert.DeserializeObject<DOCUMENT>(txt,new JsonSerializerSettings{
       TypeNameHandling = TypeNameHandling.Objects,
     SerializationBinder = knownTypesBinder

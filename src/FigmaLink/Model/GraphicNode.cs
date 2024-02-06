@@ -12,7 +12,7 @@ namespace FigmaLink.Model
   /// </summary>
   public class GraphicBaseNode : BaseNode
   {
-    public bool isAsset { get; set; }
+
     public bool visible { get; set; }
     public double x { get; set; }
     public double y { get; set; }

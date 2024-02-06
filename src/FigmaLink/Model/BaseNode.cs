@@ -10,7 +10,13 @@ namespace FigmaLink.Model
 {
     public class BaseNode : IBaseNode
     {
-
+        public Type Type
+        {
+            get
+            {
+                return this.GetType();
+            }
+        }
 
         public string id { get; set; }
 
@@ -76,9 +82,9 @@ namespace FigmaLink.Model
                         (page as IBaseNode).Init();
                         this.Children.Add(page as IBaseNode);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
-                        Console.WriteLine("1");
+                        throw new Exception(ex.Message);
                     }
                 }
                 else
@@ -93,7 +99,7 @@ namespace FigmaLink.Model
     public interface IBaseNode
     {
 
-
+        public Type Type { get; }
         public string id { get; set; }
 
         public string name { get; set; }
@@ -105,56 +111,6 @@ namespace FigmaLink.Model
         public void Init();
 
     }
-
-
-    // public class FigmaJsonConverter : JsonConverter
-    // {
-    //     private readonly Type[] _types;
-
-    //     public FigmaJsonConverter(params Type[] types)
-    //     {
-    //         _types = types;
-    //     }
-
-    //     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    //     {
-    //         JToken t = JToken.FromObject(value);
-
-    //         if (t.Type != JTokenType.Object)
-    //         {
-    //             t.WriteTo(writer);
-    //         }
-    //         else
-    //         {
-    //             JObject o = (JObject)t;
-    //             IList<string> propertyNames = o.Properties().Select(p => p.Name).ToList();
-
-    //             o.AddFirst(new JProperty("Keys", new JArray(propertyNames)));
-
-    //             o.WriteTo(writer);
-    //         }
-    //     }
-
-    //     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-    //     {
-    //         // throw new NotImplementedException("Unnecessary because CanRead is false. The type will skip the converter.");
-
-    //         var aa = reader.Value;
-    //         return new BaseNode();
-    //         return null;
-    //     }
-
-    //     public override bool CanRead
-    //     {
-    //         get { return true; }
-    //     }
-
-    //     public override bool CanConvert(Type objectType)
-    //     {
-    //         return _types.Any(t => t == objectType);
-    //     }
-    // }
-
 
 
     public class KnownTypesBinder : ISerializationBinder

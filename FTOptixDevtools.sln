@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FigmaLink", "src\FigmaLink\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "src\Test\Test.csproj", "{F3FFC1BD-2068-430F-892E-A84794890997}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIGenerator", "src\UIGenerator\UIGenerator.csproj", "{D3F9D6E0-F300-4EC5-AFF4-7EF855E12ADB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +28,14 @@ Global
 		{F3FFC1BD-2068-430F-892E-A84794890997}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3FFC1BD-2068-430F-892E-A84794890997}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3FFC1BD-2068-430F-892E-A84794890997}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3F9D6E0-F300-4EC5-AFF4-7EF855E12ADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3F9D6E0-F300-4EC5-AFF4-7EF855E12ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3F9D6E0-F300-4EC5-AFF4-7EF855E12ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3F9D6E0-F300-4EC5-AFF4-7EF855E12ADB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FA2FCB19-EEC7-4964-8B23-C463F286E867} = {72F67061-EB77-4FE1-9B96-E88CE52E439F}
 		{F3FFC1BD-2068-430F-892E-A84794890997} = {72F67061-EB77-4FE1-9B96-E88CE52E439F}
+		{D3F9D6E0-F300-4EC5-AFF4-7EF855E12ADB} = {72F67061-EB77-4FE1-9B96-E88CE52E439F}
 	EndGlobalSection
 EndGlobal
