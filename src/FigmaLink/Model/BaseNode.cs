@@ -32,7 +32,7 @@ namespace FigmaLink.Model
         public List<IBaseNode> Children
         {
             get { return _children; }
-            set { _children = value; }
+            private set { _children = value; }
         }
 
 
@@ -47,6 +47,9 @@ namespace FigmaLink.Model
                     , typeof(DOCUMENT)
                     , typeof(PAGE)
                     , typeof(FRAME)
+                    , typeof(GROUP)
+                    , typeof(VECTOR)
+                    , typeof(IMAGE)
                     , typeof(COMPONENT)
                     , typeof(RECTANGLE)
                     , typeof(INSTANCE)
@@ -106,7 +109,7 @@ namespace FigmaLink.Model
         public bool isAsset { get; set; }
 
         public JArray jsonChildren { get; set; }
-
+        public List<IBaseNode> Children{get;}
 
         public void Init();
 

@@ -1,6 +1,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace FigmaLink.Model
@@ -13,17 +15,20 @@ namespace FigmaLink.Model
   public class GraphicBaseNode : BaseNode
   {
 
-    public bool visible { get; set; }
-    public double x { get; set; }
-    public double y { get; set; }
-    public double rotation { get; set; }
-    public double width { get; set; }
-    public double height { get; set; }
-    public double opacity { get; set; }
-    public string description { get; set; }
 
     //属性引用
     public object componentPropertyReferences { get; set; }
+
+
+    public bool visible { get; set; }
+    public float x { get; set; }
+    public float y { get; set; }
+    public float rotation { get; set; }
+    public float width { get; set; }
+    public float height { get; set; }
+    public float opacity { get; set; }
+    public string description { get; set; }
+
 
 
     public List<object> backgrounds { get; set; }
@@ -32,11 +37,29 @@ namespace FigmaLink.Model
     public List<Reaction> reactions { get; set; }
 
   }
+
+  public class GROUP : GraphicBaseNode{
+
+  }
+
   public class FRAME : GraphicBaseNode
   {
 
   }
+  public class VECTOR : GraphicBaseNode
+  {
+    public List<VectorPath> vectorPaths { get; set; }
+    public object vectorNetwork { get; set; }
 
+  }
+
+
+  public class VectorPath{
+    [JsonProperty("windingRule")]
+    public string WindingRule { get; set; }
+    [JsonProperty("data")]
+    public string Data { get; set; }
+  }
 
   public class COMPONENT : GraphicBaseNode
   {
@@ -116,6 +139,14 @@ namespace FigmaLink.Model
 
   public class TEXT : GraphicBaseNode
   {
+   public Font fontName { get; set; } 
+    public float fontSize { get; set; }
+    public float fontWeight { get; set; }
+    public string characters { get; set; }
+public TextAlignHorizontalType textAlignHorizontal { get; set; }
+public TextAlignVerticalType textAlignVertical { get; set; }
+
+public string textAutoResize { get; set; }
 
   }
 
@@ -142,6 +173,8 @@ namespace FigmaLink.Model
 
   }
 
+
+
   public class NODE : ActionBase
   {
     public string destinationId { get; set; }
@@ -166,7 +199,7 @@ namespace FigmaLink.Model
   }
 
 
-
+  
   public class SOLID
   {
     public bool visible { get; set; }
@@ -177,6 +210,22 @@ namespace FigmaLink.Model
     public object boundVariables { get; set; }
   }
 
+public class IMAGE{
+    public bool visible { get; set; }
+    public double opacity { get; set; }
+    public string blendMode { get; set; }
+
+    public string scaleMode {get;set;}
+
+    public float[][] imageTransform { get; set; }
+
+    public float rotation { get; set; }
+    public float scalingFactor { get; set; }
+
+    public string imageHash { get; set; }
+    
+
+}
 
   public class Color
   {
@@ -197,6 +246,25 @@ namespace FigmaLink.Model
     public string name { get; set; }
     public string datatype { get; set; }
     public string value { get; set; }
+  }
+
+  public class Font{
+    public string family { get; set; }
+    public string style { get; set; }
+  }
+
+  public enum TextAlignHorizontalType{
+    NONE,
+    LEFT,
+    RIGHT,
+    CENTER
+  }
+
+    public enum TextAlignVerticalType{
+    NONE,
+    TOP,
+    BOTTOM,
+    CENTER,
   }
 
 }
