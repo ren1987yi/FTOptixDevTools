@@ -91,6 +91,18 @@ public class Generator
         {
             var folder = InformationModel.MakeObject<Folder>(setting.WindowFolderName);
             folders.Add(folder);
+
+
+             var figma_frames = doc.GetFrames();
+            foreach (var c in figma_frames)
+            {
+                var _c = Figma.Convert.BuildWindow(manager, c);
+                if (_c != null)
+                {
+
+                    folder.Add(_c);
+                }
+            }
         }
 
         return folders.ToArray();

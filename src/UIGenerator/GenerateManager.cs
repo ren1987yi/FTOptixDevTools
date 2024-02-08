@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FTOptix.UI;
 
 namespace UIGenerator
 {
@@ -15,9 +16,39 @@ namespace UIGenerator
         }
         
 
+        private List<WindowManager> _windows = new List<WindowManager>();
+        public List<WindowManager> Windows
+        {
+            get { return _windows; }
+            set { _windows = value; }
+        }
+        
+
     }
 
-    public class ComponentManager{
+public interface IManager{
+    public DesignMeta Source {get;}
+    public UIMeta Target {get;}
+}
+    public class WindowManager:IManager{
+         //原设计稿的 Id
+        private DesignMeta _source = new DesignMeta();
+        public DesignMeta Source
+        {
+            get { return _source; }
+            protected set { _source = value; }
+        }
+        
+        //生成的模块 id
+        private UIMeta _target = new UIMeta();
+        public UIMeta Target
+        {
+            get { return _target; }
+            protected set { _target = value; }
+        }
+    }
+
+    public class ComponentManager:IManager{
 
         //原设计稿的 Id
         private DesignMeta _source = new DesignMeta();
@@ -63,6 +94,7 @@ namespace UIGenerator
     public class PropertyMapper{
         public object SourceId { get; set; }
         public object TargetId { get; set; }
+        public object Target{get;set;}
     }
 
 

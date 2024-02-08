@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FTOptix.Core;
+using OpcUa = UAManagedCore.OpcUa;
 using FTOptix.CoreBase;
 using FTOptix.HMIProject;
 using FTOptix.UI;
@@ -112,6 +113,12 @@ namespace UIGenerator
                 }
             }
 
+        }
+
+
+        public static void SetVariableValue(IUAVariable v,object value){
+                v.Value = new UAValue(value);
+            
         }
 
         /// <summary>

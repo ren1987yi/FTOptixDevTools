@@ -28,21 +28,45 @@ namespace UIGenerator.Figma
             mgt.Source.Tag = cmpt;
             mgt.Target.Id = rootNode.NodeId;
             mgt.Target.Tag = rootNode;
-
+            manager.Components.Add(mgt);
             CreateVariables(mgt, cmpt, rootNode);
             TransferProperty(mgt, cmpt, rootNode as IUANode, true);
 
-            CreateAllChildren(mgt, cmpt, rootNode);
+            CreateAllChildren(mgt, cmpt, rootNode, true);
 
 
 
 
 
 
-            manager.Components.Add(mgt);
+
+
+
             return rootNode;
         }
 
+
+
+        public static IUANode BuildWindow(GenerateManager manager, FRAME frame)
+        {
+            var name = CreateBrowseName(frame);
+            NodeId eventTypeId = new NodeId(NamespaceMapProvider.GetNamespaceIndex("urn:FTOptix:UI"), 60u);
+            var rootNode = InformationModel.MakeObjectType(name, eventTypeId);
+            var mgt = new WindowManager();
+            mgt.Source.Id = frame.id;
+            mgt.Source.Tag = frame;
+            mgt.Target.Id = rootNode.NodeId;
+            mgt.Target.Tag = rootNode;
+            manager.Windows.Add(mgt);
+
+            TransferProperty(mgt, frame, rootNode as IUANode, true);
+
+            CreateAllChildren(mgt, frame, rootNode, false, manager);
+
+
+
+            return rootNode;
+        }
 
         private static string CreateBrowseName(IBaseNode node, bool isRoot = true)
         {
@@ -50,11 +74,15 @@ namespace UIGenerator.Figma
             {
 
                 var id = node.id.Replace(':', '_');
-                return $"{COMPONENT_NAME_FIX}_{node.name}_{id}";
+
+                var name = node.name.Replace(" ", "_");
+
+                return $"{COMPONENT_NAME_FIX}_{name}_{id}";
             }
             else
             {
-                return node.name;
+                var name = node.name.Replace(" ", "_");
+                return name;
             }
         }
 
@@ -85,60 +113,131 @@ namespace UIGenerator.Figma
                 parent.Add(v);
 
 
-                manager.PropertyMappers.Add(new PropertyMapper() { SourceId = name, TargetId = v.NodeId });
+                manager.PropertyMappers.Add(new PropertyMapper() { SourceId = name, TargetId = v.NodeId, Target = v });
             }
         }
 
 
 
-        private static void CreateAllChildren(ComponentManager manager, IBaseNode root, IUANode parent)
+        private static void CreateAllChildren(IManager mgt, IBaseNode root, IUANode parent, bool isComponent, GenerateManager gmgt = null)
         {
             foreach (var c in root.Children)
             {
-                var ctrl = CreateControl(c);
+                var (ctrl, isInstance, cmgt) = CreateControl(c, gmgt);
                 if (ctrl != null)
                 {
 
                     parent.Add(ctrl);
-                    TransferProperty(manager, c as GraphicBaseNode, ctrl, false);
-                    CreateAllChildren(manager, c, ctrl);
+                    TransferProperty(mgt, c as GraphicBaseNode, ctrl, false);
+                    if (isComponent == true)
+                    {
+
+                        //link property
+                        LinkProperty(mgt as ComponentManager, c as GraphicBaseNode, ctrl);
+                    }
+
+                    if (isInstance && cmgt != null)
+                    {
+                        //set instance property value
+                        SetInstancePropertyValue(cmgt, c as INSTANCE, ctrl);
+
+                    }
+
+                    if (!isInstance)
+                    {
+
+                        CreateAllChildren(mgt, c, ctrl, isComponent, gmgt);
+                    }
                 }
 
 
             }
         }
 
-        private static Item CreateControl(IBaseNode node)
+
+        /// <summary>
+        /// 创建Optix UI 控件
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="gmgt"></param>
+        /// <returns>
+        ///     /// 创建出来的 UI控件
+        ///     /// 是否是 instance 实例化的组件
+        ///     /// instance 的模板 component manager
+        /// </returns>
+        private static (Item, bool, ComponentManager) CreateControl(IBaseNode node, GenerateManager gmgt = null)
         {
             var name = CreateBrowseName(node, false);
             if (node.Type == typeof(FigmaLink.Model.RECTANGLE))
             {
-                return InformationModel.MakeObject<Rectangle>(name);
+                var gnode = (node as GraphicBaseNode);
+                if (gnode != null)
+                {
+                    if (gnode.fills.Count > 0)
+                    {
+                        if (gnode.fills[0].GetType() == typeof(IMAGE))
+                        {
+                            return (InformationModel.MakeObject<Image>(name), false, null);
+                        }
+                    }
+                }
+                return (InformationModel.MakeObject<Rectangle>(name), false, null);
             }
             else if (node.Type == typeof(FigmaLink.Model.ELLIPSE))
             {
-                return InformationModel.MakeObject<Ellipse>(name);
+                return (InformationModel.MakeObject<Ellipse>(name), false, null);
             }
             else if (node.Type == typeof(FigmaLink.Model.TEXT))
             {
-                return InformationModel.MakeObject<Label>(name);
+                return (InformationModel.MakeObject<Label>(name), false, null);
             }
             else if (node.Type == typeof(FigmaLink.Model.GROUP))
             {
-                return InformationModel.MakeObject<Panel>(name);
+                return (InformationModel.MakeObject<Panel>(name), false, null);
+            }
+            else if (node.Type == typeof(FigmaLink.Model.VECTOR))
+            {
+                return (InformationModel.MakeObject<Panel>(name), false, null);
             }
             else if (node.Type == typeof(FigmaLink.Model.FRAME))
             {
-                return InformationModel.MakeObject<Rectangle>(name);
+                return (InformationModel.MakeObject<Rectangle>(name), false, null);
+            }
+            else if (node.Type == typeof(FigmaLink.Model.INSTANCE))
+            {
+                var ins = (node as INSTANCE);
+                var componentId = ins.mainComponent.id;
+                if (gmgt != null)
+                {
+                    var cmgt = gmgt.Components.Where(c => c.Source.Id.ToString() == componentId).FirstOrDefault();
+                    NodeId uiId = null;
+                    if (cmgt != null)
+                    {
+                        uiId = cmgt.Target.Id as NodeId;
+                    }
+                    // var uiId = gmgt.Components.Where(c=>c.Source.Id.ToString() == componentId).FirstOrDefault()?.Target.Id as NodeId;
+                    if (uiId != null)
+                    {
+                        return (InformationModel.MakeObject(name, uiId) as Item, true, cmgt);
+                    }
+                    else
+                    {
+
+                        throw new Exception($"create instance : miss the type :{componentId}");
+                        // return (null, true, null);
+                    }
+                }
+                return (null, true, null);
             }
             else
             {
-                throw new Exception("create control : miss the type");
+                throw new Exception($"create control : miss the type :{node.Type.FullName}");
             }
+
         }
 
 
-        private static void TransferProperty(ComponentManager manager, GraphicBaseNode source, IUANode target, bool isRoot = false)
+        private static void TransferProperty(IManager manager, GraphicBaseNode source, IUANode target, bool isRoot = false)
         {
             if (source == null)
             {
@@ -154,11 +253,14 @@ namespace UIGenerator.Figma
 
                 TransferProperty_Text(source, target);
             }
+            if (target.GetType() == typeof(Image))
+            {
+
+                // TransferProperty_Text(source, target);
+            }
 
 
 
-            //link property
-            LinkProperty(manager, source, target);
 
         }
 
@@ -168,6 +270,8 @@ namespace UIGenerator.Figma
 
             Utils.SetWidth(target, (float)source.width);
             Utils.SetHeight(target, (float)source.height);
+
+            //todo 处理在 figma group里面的东西
 
             if (!isRoot)
             {
@@ -200,7 +304,7 @@ namespace UIGenerator.Figma
         {
 
 
-            //TODO 图片填充怎么办
+
             if (source.fills == null)
             {
                 return;
@@ -213,6 +317,10 @@ namespace UIGenerator.Figma
                 {
 
                     Utils.SetTextColor(target, c);
+                }
+                else if (target.GetType() == typeof(Image))
+                {
+                    //TODO 图片填充怎么办
                 }
                 else
                 {
@@ -305,6 +413,12 @@ namespace UIGenerator.Figma
 
 
 
+        /// <summary>
+        /// 根据 figma ，链接 OptixUI内与自定义属性的链接  dynamic link
+        /// </summary>
+        /// <param name="manager"></param>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
         private static void LinkProperty(ComponentManager manager, GraphicBaseNode source, IUANode target)
         {
             var vv = source.componentPropertyReferences;
@@ -339,6 +453,76 @@ namespace UIGenerator.Figma
                 }
             }
         }
+
+
+        /// <summary>
+        /// 根据 figma 的设计，把实例化后的 optix ui对象的自定义属性赋值一下
+        /// </summary>
+        /// <param name="manager"></param>
+        /// <param name="source"></param>
+        /// <param name="target"></param> <summary>
+        /// 
+        /// </summary>
+        /// <param name="manager"></param>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        private static void SetInstancePropertyValue(ComponentManager manager, INSTANCE source, IUANode target)
+        {
+            var vv = source.componentProperties;
+            if (vv == null)
+            {
+                return;
+            }
+            if (source.componentProperties.GetType() == typeof(JObject))
+            {
+                var refs = vv as JObject;
+                foreach (var kv in refs.Children())
+                {
+                    var source_property_name = kv.Path; //figma 中属性的名称 id
+                    var property_datatype = (string)kv.First["$type"];   //figma 中属性的值
+
+                    object property_value=null;
+                    switch (property_datatype)
+                    {
+                        case "BOOLEAN":
+
+                            property_value = (bool)kv.First["value"];   //figma 中属性的值
+                            break;
+                        case "TEXT":
+
+                            property_value = (string)kv.First["value"];   //figma 中属性的值
+                            break;
+                        
+                    }
+
+
+                    var target_property = manager.PropertyMappers.Where(p => p.SourceId.ToString() == source_property_name).FirstOrDefault()?.Target as IUAVariable;
+                    if (target_property != null)
+                    {
+
+                        var v = target.GetVariable(target_property.BrowseName);
+                        if (v != null)
+                        {
+                            try
+                            {
+                                if(property_value == null){
+                                    return;
+                                }
+                                Utils.SetVariableValue(v, property_value);
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
+                        }
+                    }
+
+
+
+                }
+            }
+        }
+
 
         private static FTOptix.Core.Color ConvertColor(object oldColor)
         {

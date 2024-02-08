@@ -16,7 +16,7 @@ namespace UIGenerator{
             set { _enableComponent = value; }
         }
 
-        private bool _enableWindow = false;
+        private bool _enableWindow = true;
         public bool EnableWindow
         {
             get { return _enableWindow; }
