@@ -104,9 +104,12 @@ namespace UIGenerator
                     {
                         var dlink = dl as DynamicLink;
                         var path = GetRelativeNodePath(dlink, source);
-                        if(string.IsNullOrEmpty(path)){
-                            
-                        }else{
+                        if (string.IsNullOrEmpty(path))
+                        {
+
+                        }
+                        else
+                        {
                             dlink.Value = path;
                         }
                     }
@@ -116,9 +119,10 @@ namespace UIGenerator
         }
 
 
-        public static void SetVariableValue(IUAVariable v,object value){
-                v.Value = new UAValue(value);
-            
+        public static void SetVariableValue(IUAVariable v, object value)
+        {
+            v.Value = new UAValue(value);
+
         }
 
         /// <summary>
@@ -139,7 +143,7 @@ namespace UIGenerator
             else
             {
                 curNode = curNode.Owner;
-                
+
             }
             var found = false;
             do
@@ -219,6 +223,8 @@ namespace UIGenerator
         public static void SetBorderColor(IUANode node, Color value)
         {
             SetProperty(node, value, "BorderColor");
+
+
             // var v = node.Get("BorderColorVariable") as IUAVariable;
             // if (v != null)
             // {
@@ -228,6 +234,22 @@ namespace UIGenerator
 
         }
 
+        public static void SetBorderThickness(IUANode node, float value)
+        {
+            SetProperty(node, value, "BorderThickness");
+
+
+
+        }
+
+        public static void SetCornerRadius(IUANode node, float value)
+        {
+            SetProperty(node, value, "CornerRadius");
+
+            // Rectangle a;
+            //         a.CornerRadius
+
+        }
         public static void SetHeight(IUANode node, float value)
         {
             SetProperty(node, value, "Height");

@@ -19,26 +19,83 @@ namespace FigmaLink.Model
     //属性引用
     public object componentPropertyReferences { get; set; }
 
-
+    /// <summary>
+    /// 可见性
+    /// </summary>
+    /// <value></value>
     public bool visible { get; set; }
+    /// <summary>
+    /// x坐标
+    /// </summary>
+    /// <value></value>
     public float x { get; set; }
+    /// <summary>
+    /// y坐标
+    /// </summary>
+    /// <value></value>
     public float y { get; set; }
+    /// <summary>
+    /// 旋转角度
+    /// </summary>
+    /// <value></value>
     public float rotation { get; set; }
+    /// <summary>
+    /// 宽度
+    /// </summary>
+    /// <value></value>
     public float width { get; set; }
+    /// <summary>
+    /// 高度
+    /// </summary>
+    /// <value></value>
     public float height { get; set; }
+    /// <summary>
+    /// 透明度
+    /// </summary>
+    /// <value></value>
     public float opacity { get; set; }
+    /// <summary>
+    /// 描述
+    /// </summary>
+    /// <value></value>
     public string description { get; set; }
+    /// <summary>
+    /// 线条宽度
+    /// </summary>
+    /// <value></value>
+    public float strokeWeight { get; set; }
+    /// <summary>
+    /// 角度半径
+    /// </summary>
+    /// <value></value>
+    public float cornerRadius { get; set; }
 
 
-
+    /// <summary>
+    /// 背景色
+    /// </summary>
+    /// <value></value>
     public List<object> backgrounds { get; set; }
+    /// <summary>
+    /// 填充色
+    /// </summary>
+    /// <value></value>
     public List<object> fills { get; set; }
+    /// <summary>
+    /// 线条样式
+    /// </summary>
+    /// <value></value>
     public List<object> strokes { get; set; }
+    /// <summary>
+    /// 动作
+    /// </summary>
+    /// <value></value>
     public List<Reaction> reactions { get; set; }
 
   }
 
-  public class GROUP : GraphicBaseNode{
+  public class GROUP : GraphicBaseNode
+  {
 
   }
 
@@ -54,7 +111,8 @@ namespace FigmaLink.Model
   }
 
 
-  public class VectorPath{
+  public class VectorPath
+  {
     [JsonProperty("windingRule")]
     public string WindingRule { get; set; }
     [JsonProperty("data")]
@@ -105,7 +163,7 @@ namespace FigmaLink.Model
 
     public JObject componentProperties { get; set; }
 
-     public IEnumerable<ComponentProperty> GetPropertys
+    public IEnumerable<ComponentProperty> GetPropertys
     {
       get
       {
@@ -117,8 +175,8 @@ namespace FigmaLink.Model
           {
 
             var name = token.Path;
-            
-     
+
+
             var datatype = (string)this.componentProperties[name]["$type"];
             var value = (string)this.componentProperties[name]["value"];
 
@@ -139,14 +197,14 @@ namespace FigmaLink.Model
 
   public class TEXT : GraphicBaseNode
   {
-   public Font fontName { get; set; } 
+    public Font fontName { get; set; }
     public float fontSize { get; set; }
     public float fontWeight { get; set; }
     public string characters { get; set; }
-public TextAlignHorizontalType textAlignHorizontal { get; set; }
-public TextAlignVerticalType textAlignVertical { get; set; }
+    public TextAlignHorizontalType textAlignHorizontal { get; set; }
+    public TextAlignVerticalType textAlignVertical { get; set; }
 
-public string textAutoResize { get; set; }
+    public string textAutoResize { get; set; }
 
   }
 
@@ -199,23 +257,24 @@ public string textAutoResize { get; set; }
   }
 
 
-  
+
   public class SOLID
   {
     public bool visible { get; set; }
-    public double opacity { get; set; }
+    public float opacity { get; set; }
     public string blendMode { get; set; }
     public Color color { get; set; }
 
     public object boundVariables { get; set; }
   }
 
-public class IMAGE{
+  public class IMAGE
+  {
     public bool visible { get; set; }
-    public double opacity { get; set; }
+    public float opacity { get; set; }
     public string blendMode { get; set; }
 
-    public string scaleMode {get;set;}
+    public string scaleMode { get; set; }
 
     public float[][] imageTransform { get; set; }
 
@@ -223,9 +282,9 @@ public class IMAGE{
     public float scalingFactor { get; set; }
 
     public string imageHash { get; set; }
-    
 
-}
+
+  }
 
   public class Color
   {
@@ -248,19 +307,22 @@ public class IMAGE{
     public string value { get; set; }
   }
 
-  public class Font{
+  public class Font
+  {
     public string family { get; set; }
     public string style { get; set; }
   }
 
-  public enum TextAlignHorizontalType{
+  public enum TextAlignHorizontalType
+  {
     NONE,
     LEFT,
     RIGHT,
     CENTER
   }
 
-    public enum TextAlignVerticalType{
+  public enum TextAlignVerticalType
+  {
     NONE,
     TOP,
     BOTTOM,

@@ -8,27 +8,71 @@ using Newtonsoft.Json.Linq;
 using System.Linq;
 using FTOptix.CODESYS;
 using System;
+using FigmaLink;
+using FTOptix.CoreBase;
+using System.IO;
 namespace UIGenerator.Figma
 {
 
 
-
-
-    public class Convert
+    /// <summary>
+    /// Figma的转换器
+    /// </summary>
+    public class Converter
     {
+
+
+        private GenerateManager Manager;
+        private string AssetFolder;
+        Asset<FigFile> asset;
+
+
+        public const string AssetFigName = "Fig";
+        const string IMPORT_ASSET_FOLDER = "FIGMA";
         const string COMPONENT_NAME_FIX = "Widget";
-        const string WINDOW_NAME_FIX = "Widget";
-        public static IUANode BuildComponent(GenerateManager manager, COMPONENT cmpt)
+        const string WINDOW_NAME_FIX = "Window";
+        public Converter(GenerateManager manager)
+        {
+            Manager = manager;
+
+            var cc = manager.Assets.Where(c => c.Name == AssetFigName).FirstOrDefault();
+            if (cc != null)
+            {
+                asset = cc as Asset<FigFile>;
+
+            }
+
+
+            var uri = ResourceUri.FromProjectRelativePath("");
+            var _path = uri.Uri;
+            var _folder = AssetFolder = Path.Combine(_path, IMPORT_ASSET_FOLDER);
+
+            if (!Directory.Exists(_folder))
+            {
+                Directory.CreateDirectory(_folder);
+            }
+
+
+
+
+        }
+
+
+        /// <summary>
+        /// 创建模板
+        /// </summary>
+        /// <param name="cmpt">figma 模块</param>
+        /// <returns></returns>
+        public IUANode BuildComponent(COMPONENT cmpt)
         {
             var name = CreateBrowseName(cmpt);
-            NodeId eventTypeId = new NodeId(NamespaceMapProvider.GetNamespaceIndex("urn:FTOptix:UI"), 60u);
-            var rootNode = InformationModel.MakeObjectType(name, eventTypeId);
+            var rootNode = CreateContainerType(name);
             var mgt = new ComponentManager();
             mgt.Source.Id = cmpt.id;
             mgt.Source.Tag = cmpt;
             mgt.Target.Id = rootNode.NodeId;
             mgt.Target.Tag = rootNode;
-            manager.Components.Add(mgt);
+            Manager.Components.Add(mgt);
             CreateVariables(mgt, cmpt, rootNode);
             TransferProperty(mgt, cmpt, rootNode as IUANode, true);
 
@@ -37,42 +81,47 @@ namespace UIGenerator.Figma
 
 
 
-
-
-
-
-
             return rootNode;
         }
 
 
 
-        public static IUANode BuildWindow(GenerateManager manager, FRAME frame)
+
+        /// <summary>
+        /// 创建画面
+        /// </summary>
+        /// <param name="frame">figma 画面</param>
+        /// <returns></returns>
+        public IUANode BuildWindow(FRAME frame)
         {
             var name = CreateBrowseName(frame);
-            NodeId eventTypeId = new NodeId(NamespaceMapProvider.GetNamespaceIndex("urn:FTOptix:UI"), 60u);
-            var rootNode = InformationModel.MakeObjectType(name, eventTypeId);
+            var rootNode = CreateContainerType(name);
             var mgt = new WindowManager();
             mgt.Source.Id = frame.id;
             mgt.Source.Tag = frame;
             mgt.Target.Id = rootNode.NodeId;
             mgt.Target.Tag = rootNode;
-            manager.Windows.Add(mgt);
+            Manager.Windows.Add(mgt);
 
             TransferProperty(mgt, frame, rootNode as IUANode, true);
 
-            CreateAllChildren(mgt, frame, rootNode, false, manager);
+            CreateAllChildren(mgt, frame, rootNode, false);
 
 
 
             return rootNode;
         }
 
-        private static string CreateBrowseName(IBaseNode node, bool isRoot = true)
+        /// <summary>
+        /// 生成optix的名称，根据figma里的名称
+        /// </summary>
+        /// <param name="node">figma node</param>
+        /// <param name="isRoot">是否是根节点</param>
+        /// <returns></returns>
+        private string CreateBrowseName(IBaseNode node, bool isRoot = true)
         {
             if (isRoot)
             {
-
                 var id = node.id.Replace(':', '_');
 
                 var name = node.name.Replace(" ", "_");
@@ -86,7 +135,14 @@ namespace UIGenerator.Figma
             }
         }
 
-        private static void CreateVariables(ComponentManager manager, COMPONENT cmpt, IUANode parent)
+
+        /// <summary>
+        /// 创建模板 optix 的接口变量
+        /// </summary>
+        /// <param name="manager"></param>
+        /// <param name="cmpt"></param>
+        /// <param name="parent"></param>
+        private void CreateVariables(ComponentManager manager, COMPONENT cmpt, IUANode parent)
         {
 
             var ps = cmpt.GetPropertyDefinitions;
@@ -118,12 +174,22 @@ namespace UIGenerator.Figma
         }
 
 
-
-        private static void CreateAllChildren(IManager mgt, IBaseNode root, IUANode parent, bool isComponent, GenerateManager gmgt = null)
+        /// <summary>
+        /// 创建所有子节点
+        /// </summary>
+        /// <param name="mgt">管理器</param>
+        /// <param name="root">figma父节点</param>
+        /// <param name="parent">optix父节点</param>
+        /// <param name="isComponent">是否是模板</param>
+        private void CreateAllChildren(IManager mgt, IBaseNode root, IUANode parent, bool isComponent)
         {
             foreach (var c in root.Children)
             {
-                var (ctrl, isInstance, cmgt) = CreateControl(c, gmgt);
+                //ctrl 控件
+                //isInstance 是否是实例
+                //cmgt 对应的模板管理器
+                var (ctrl, isInstance, cmgt) = CreateControl(c, Manager);
+
                 if (ctrl != null)
                 {
 
@@ -136,6 +202,7 @@ namespace UIGenerator.Figma
                         LinkProperty(mgt as ComponentManager, c as GraphicBaseNode, ctrl);
                     }
 
+                    //是模块实例化，并且找到了模板
                     if (isInstance && cmgt != null)
                     {
                         //set instance property value
@@ -146,7 +213,7 @@ namespace UIGenerator.Figma
                     if (!isInstance)
                     {
 
-                        CreateAllChildren(mgt, c, ctrl, isComponent, gmgt);
+                        CreateAllChildren(mgt, c, ctrl, isComponent);
                     }
                 }
 
@@ -165,11 +232,14 @@ namespace UIGenerator.Figma
         ///     /// 是否是 instance 实例化的组件
         ///     /// instance 的模板 component manager
         /// </returns>
-        private static (Item, bool, ComponentManager) CreateControl(IBaseNode node, GenerateManager gmgt = null)
+        private (Item, bool, ComponentManager) CreateControl(IBaseNode node, GenerateManager gmgt = null)
         {
             var name = CreateBrowseName(node, false);
             if (node.Type == typeof(FigmaLink.Model.RECTANGLE))
             {
+                //image 填充的对应 Optix.Image
+                //否则 Optix.Rectangle
+
                 var gnode = (node as GraphicBaseNode);
                 if (gnode != null)
                 {
@@ -181,6 +251,7 @@ namespace UIGenerator.Figma
                         }
                     }
                 }
+
                 return (InformationModel.MakeObject<Rectangle>(name), false, null);
             }
             else if (node.Type == typeof(FigmaLink.Model.ELLIPSE))
@@ -197,6 +268,7 @@ namespace UIGenerator.Figma
             }
             else if (node.Type == typeof(FigmaLink.Model.VECTOR))
             {
+                //TODO 矢量控件的转换，里面的内容怎么转过去
                 return (InformationModel.MakeObject<Panel>(name), false, null);
             }
             else if (node.Type == typeof(FigmaLink.Model.FRAME))
@@ -209,22 +281,27 @@ namespace UIGenerator.Figma
                 var componentId = ins.mainComponent.id;
                 if (gmgt != null)
                 {
+                    //找到模板管理器
                     var cmgt = gmgt.Components.Where(c => c.Source.Id.ToString() == componentId).FirstOrDefault();
+
+                    //提取到optix里，模板 type 的nodeId
                     NodeId uiId = null;
                     if (cmgt != null)
                     {
                         uiId = cmgt.Target.Id as NodeId;
                     }
-                    // var uiId = gmgt.Components.Where(c=>c.Source.Id.ToString() == componentId).FirstOrDefault()?.Target.Id as NodeId;
+
+
                     if (uiId != null)
                     {
+                        //创建实例
                         return (InformationModel.MakeObject(name, uiId) as Item, true, cmgt);
                     }
                     else
                     {
 
                         throw new Exception($"create instance : miss the type :{componentId}");
-                        // return (null, true, null);
+
                     }
                 }
                 return (null, true, null);
@@ -236,28 +313,38 @@ namespace UIGenerator.Figma
 
         }
 
-
-        private static void TransferProperty(IManager manager, GraphicBaseNode source, IUANode target, bool isRoot = false)
+        /// <summary>
+        /// 转换属性
+        /// </summary>
+        /// <param name="manager">管理器 window/component</param>
+        /// <param name="source">figma node</param>
+        /// <param name="target">optix node</param>
+        /// <param name="isRoot">是否是根节点</param>
+        private void TransferProperty(IManager manager, GraphicBaseNode source, IUANode target, bool isRoot = false)
         {
             if (source == null)
             {
                 return;
             }
-            TransferProperty_Size(source, target, isRoot);
+            //外观
             TransferProperty_Appearance(source, target);
+            //尺寸
+            TransferProperty_Size(source, target, isRoot);
+            //填充
             TransferProperty_Fill(source, target);
+            //边框
             TransferProperty_Border(source, target);
 
             if (target.GetType() == typeof(Label))
             {
-
+                //文字
                 TransferProperty_Text(source, target);
             }
-            if (target.GetType() == typeof(Image))
-            {
+            // else if (target.GetType() == typeof(Image))
+            // {
 
-                // TransferProperty_Text(source, target);
-            }
+            //     // TransferProperty_Text(source, target);
+            // }
 
 
 
@@ -265,13 +352,20 @@ namespace UIGenerator.Figma
         }
 
 
-        private static void TransferProperty_Size(GraphicBaseNode source, IUANode target, bool isRoot)
+        /// <summary>
+        /// 转换 size
+        /// x,y,width,height
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <param name="isRoot"></param>
+        private void TransferProperty_Size(GraphicBaseNode source, IUANode target, bool isRoot)
         {
 
             Utils.SetWidth(target, (float)source.width);
             Utils.SetHeight(target, (float)source.height);
 
-            //todo 处理在 figma group里面的东西
+            //todo 处理在 figma group里面的东西,他里面的坐标都是相对根节点的
 
             if (!isRoot)
             {
@@ -282,7 +376,13 @@ namespace UIGenerator.Figma
 
         }
 
-        private static void TransferProperty_Appearance(GraphicBaseNode source, IUANode target)
+
+        /// <summary>
+        /// 转换外观 可见性，透明度，圆角。。。
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        private void TransferProperty_Appearance(GraphicBaseNode source, IUANode target)
         {
 
             var _opacity = source.opacity * 100;
@@ -297,10 +397,23 @@ namespace UIGenerator.Figma
             Utils.SetOpacity(target, _opacity);
             Utils.SetVisible(target, source.visible);
 
+            if (target.GetType() == typeof(Rectangle))
+            {
+
+                Utils.SetCornerRadius(target, source.cornerRadius);
+            }
+
+            //set the description
+            target.Description = new LocalizedText(NodeId.InvalidNamespaceIndex, source.description);
 
         }
 
-        private static void TransferProperty_Fill(GraphicBaseNode source, IUANode target)
+        /// <summary>
+        /// 转换填充
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        private void TransferProperty_Fill(GraphicBaseNode source, IUANode target)
         {
 
 
@@ -311,20 +424,49 @@ namespace UIGenerator.Figma
             }
             if (source.fills.Count > 0)
             {
-                var c = ConvertColor(source.fills[0]);
+
+
 
                 if (target.GetType() == typeof(Label))
                 {
-
+                    //填充文字颜色
+                    var c = ConvertColor(source.fills[0]);
                     Utils.SetTextColor(target, c);
                 }
                 else if (target.GetType() == typeof(Image))
                 {
-                    //TODO 图片填充怎么办
+                    
+                    var img = target as Image;
+                    var _fillimage = source.fills[0] as IMAGE;
+
+                    // img.Rotation = _fillimage.rotation;
+                    var _opacity = source.opacity * 100;
+                    if (_opacity > 100)
+                    {
+                        _opacity = 100;
+                    }
+                    else if (_opacity < 0)
+                    {
+                        _opacity = 0;
+                    }
+                    Utils.SetOpacity(target, _opacity);
+
+                    //图片的链接
+                    var source_img_path = asset.ActualItem.GetImage(_fillimage.imageHash);
+                    if (source_img_path != null)
+                    {
+
+                        var dest_img_path = Path.Combine(AssetFolder, _fillimage.imageHash + ".png");
+
+                        File.Copy(source_img_path, dest_img_path, true);
+
+                        img.Path = ResourceUri.FromProjectRelativePath(Path.Combine(dest_img_path));
+                    }
+
                 }
                 else
                 {
-
+                    var c = ConvertColor(source.fills[0]);
                     Utils.SetFillColor(target, c);
                 }
             }
@@ -337,7 +479,12 @@ namespace UIGenerator.Figma
         }
 
 
-        private static void TransferProperty_Border(GraphicBaseNode source, IUANode target)
+        /// <summary>
+        /// 转换边框
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        private void TransferProperty_Border(GraphicBaseNode source, IUANode target)
         {
             if (source.strokes == null)
             {
@@ -345,7 +492,24 @@ namespace UIGenerator.Figma
             }
             if (source.strokes.Count > 0)
             {
+                var c = ConvertColor(source.strokes[0]);
 
+                if (target.GetType() == typeof(Label))
+                {
+
+                    // Utils.SetTextColor(target, c);
+                }
+                else if (target.GetType() == typeof(Image))
+                {
+                    //TODO 图片填充怎么办，xian pass
+                }
+                else
+                {
+
+                    Utils.SetBorderColor(target, c);
+
+
+                }
             }
             else
             {
@@ -353,10 +517,24 @@ namespace UIGenerator.Figma
             }
 
 
+            if (target.GetType() == typeof(Rectangle)
+            || target.GetType() == typeof(Ellipse))
+            {
+
+                Utils.SetBorderThickness(target, source.strokeWeight);
+            }
+
+
+
         }
 
 
-        private static void TransferProperty_Text(GraphicBaseNode source, IUANode target)
+        /// <summary>
+        /// 转换文字
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        private void TransferProperty_Text(GraphicBaseNode source, IUANode target)
         {
             if (target.GetType() == typeof(Label)
 
@@ -419,7 +597,7 @@ namespace UIGenerator.Figma
         /// <param name="manager"></param>
         /// <param name="source"></param>
         /// <param name="target"></param>
-        private static void LinkProperty(ComponentManager manager, GraphicBaseNode source, IUANode target)
+        private void LinkProperty(ComponentManager manager, GraphicBaseNode source, IUANode target)
         {
             var vv = source.componentPropertyReferences;
             if (vv == null)
@@ -466,7 +644,7 @@ namespace UIGenerator.Figma
         /// <param name="manager"></param>
         /// <param name="source"></param>
         /// <param name="target"></param>
-        private static void SetInstancePropertyValue(ComponentManager manager, INSTANCE source, IUANode target)
+        private void SetInstancePropertyValue(ComponentManager manager, INSTANCE source, IUANode target)
         {
             var vv = source.componentProperties;
             if (vv == null)
@@ -481,7 +659,7 @@ namespace UIGenerator.Figma
                     var source_property_name = kv.Path; //figma 中属性的名称 id
                     var property_datatype = (string)kv.First["$type"];   //figma 中属性的值
 
-                    object property_value=null;
+                    object property_value = null;
                     switch (property_datatype)
                     {
                         case "BOOLEAN":
@@ -492,7 +670,7 @@ namespace UIGenerator.Figma
 
                             property_value = (string)kv.First["value"];   //figma 中属性的值
                             break;
-                        
+
                     }
 
 
@@ -505,7 +683,8 @@ namespace UIGenerator.Figma
                         {
                             try
                             {
-                                if(property_value == null){
+                                if (property_value == null)
+                                {
                                     return;
                                 }
                                 Utils.SetVariableValue(v, property_value);
@@ -524,23 +703,51 @@ namespace UIGenerator.Figma
         }
 
 
-        private static FTOptix.Core.Color ConvertColor(object oldColor)
+        /// <summary>
+        /// 转换颜色
+        /// </summary>
+        /// <param name="oldColor"></param>
+        /// <returns></returns>
+        private FTOptix.Core.Color ConvertColor(object oldColor)
         {
             if (oldColor.GetType() == typeof(SOLID))
             {
+
                 var color = (oldColor as SOLID);
-                var newColor = new FTOptix.Core.Color(
-                     (byte)(color.opacity * 255)
+                if (color.visible)
+                {
+
+                    var newColor = new FTOptix.Core.Color(
+                         (byte)(color.opacity * 255)
+                        , (byte)(color.color.r * 255)
+                        , (byte)(color.color.g * 255)
+                        , (byte)(color.color.b * 255));
+
+                    return newColor;
+                }
+                else
+                {
+                    var newColor = new FTOptix.Core.Color(
+                     (byte)(color.opacity * 255 * 0)
                     , (byte)(color.color.r * 255)
                     , (byte)(color.color.g * 255)
                     , (byte)(color.color.b * 255));
 
-                return newColor;
+                    return newColor;
+                }
             }
             else
             {
-                return Colors.White;
+                return Colors.Transparent;
             }
+        }
+
+
+        internal IUAObjectType CreateContainerType(string name)
+        {
+            NodeId eventTypeId = new NodeId(NamespaceMapProvider.GetNamespaceIndex("urn:FTOptix:UI"), 60u);
+            var rootNode = InformationModel.MakeObjectType(name, eventTypeId);
+            return rootNode;
         }
     }
 

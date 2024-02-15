@@ -489,9 +489,22 @@
                                         }
                                     ],
                                     "fillStyleId": "",
-                                    "strokes": [],
+                                    "strokes": [
+                                        {
+                                            "type": "SOLID",
+                                            "visible": true,
+                                            "opacity": 1,
+                                            "blendMode": "NORMAL",
+                                            "color": {
+                                                "r": 0.125490203499794,
+                                                "g": 0.12941177189350128,
+                                                "b": 0.13333334028720856
+                                            },
+                                            "boundVariables": {}
+                                        }
+                                    ],
                                     "strokeStyleId": "",
-                                    "strokeWeight": 1,
+                                    "strokeWeight": 2,
                                     "strokeAlign": "INSIDE",
                                     "strokeJoin": "MITER",
                                     "dashPattern": [],
@@ -500,10 +513,15 @@
                                     "fillGeometry": [
                                         {
                                             "windingRule": "NONZERO",
-                                            "data": "M0 0 L120 0 L120 60 L0 60 L0 0 Z"
+                                            "data": "M0 6 C0 2.68629 2.68629 0 6 0 L114 0 C117.314 0 120 2.68629 120 6 L120 54 C120 57.3137 117.314 60 114 60 L6 60 C2.68629 60 0 57.3137 0 54 L0 6 Z"
                                         }
                                     ],
-                                    "strokeGeometry": [],
+                                    "strokeGeometry": [
+                                        {
+                                            "windingRule": "NONZERO",
+                                            "data": "M6 2 L114 2 L114 -2 L6 -2 L6 2 Z M118 6 L118 54 L122 54 L122 6 L118 6 Z M114 58 L6 58 L6 62 L114 62 L114 58 Z M2 54 L2 6 L-2 6 L-2 54 L2 54 Z M6 58 C3.79086 58 2 56.2091 2 54 L-2 54 C-2 58.4183 1.58172 62 6 62 L6 58 Z M118 54 C118 56.2091 116.209 58 114 58 L114 62 C118.418 62 122 58.4183 122 54 L118 54 Z M114 2 C116.209 2 118 3.79086 118 6 L122 6 C122 1.58172 118.418 -2 114 -2 L114 2 Z M6 -2 C1.58172 -2 -2 1.58172 -2 6 L2 6 C2 3.79086 3.79086 2 6 2 L6 -2 Z"
+                                        }
+                                    ],
                                     "relativeTransform": [
                                         [
                                             1,
@@ -560,17 +578,17 @@
                                         "horizontal": "SCALE",
                                         "vertical": "SCALE"
                                     },
-                                    "cornerRadius": 0,
+                                    "cornerRadius": 6,
                                     "cornerSmoothing": 0,
-                                    "topLeftRadius": 0,
-                                    "topRightRadius": 0,
-                                    "bottomLeftRadius": 0,
-                                    "bottomRightRadius": 0,
+                                    "topLeftRadius": 6,
+                                    "topRightRadius": 6,
+                                    "bottomLeftRadius": 6,
+                                    "bottomRightRadius": 6,
                                     "reactions": [],
-                                    "strokeTopWeight": 1,
-                                    "strokeBottomWeight": 1,
-                                    "strokeLeftWeight": 1,
-                                    "strokeRightWeight": 1,
+                                    "strokeTopWeight": 2,
+                                    "strokeBottomWeight": 2,
+                                    "strokeLeftWeight": 2,
+                                    "strokeRightWeight": 2,
                                     "playbackSettings": {
                                         "autoplay": true,
                                         "loop": true,
@@ -880,7 +898,7 @@
                                 "backgroundStyleId": "",
                                 "clipsContent": false,
                                 "guides": [],
-                                "expanded": false,
+                                "expanded": true,
                                 "constraints": {
                                     "horizontal": "MIN",
                                     "vertical": "MIN"
@@ -973,9 +991,22 @@
                                             }
                                         ],
                                         "fillStyleId": "",
-                                        "strokes": [],
+                                        "strokes": [
+                                            {
+                                                "type": "SOLID",
+                                                "visible": true,
+                                                "opacity": 1,
+                                                "blendMode": "NORMAL",
+                                                "color": {
+                                                    "r": 0.125490203499794,
+                                                    "g": 0.12941177189350128,
+                                                    "b": 0.13333334028720856
+                                                },
+                                                "boundVariables": {}
+                                            }
+                                        ],
                                         "strokeStyleId": "",
-                                        "strokeWeight": 1,
+                                        "strokeWeight": 2,
                                         "strokeAlign": "INSIDE",
                                         "strokeJoin": "MITER",
                                         "dashPattern": [],
@@ -984,10 +1015,15 @@
                                         "fillGeometry": [
                                             {
                                                 "windingRule": "NONZERO",
-                                                "data": "M0 0 L120 0 L120 60 L0 60 L0 0 Z"
+                                                "data": "M0 6 C0 2.68629 2.68629 0 6 0 L114 0 C117.314 0 120 2.68629 120 6 L120 54 C120 57.3137 117.314 60 114 60 L6 60 C2.68629 60 0 57.3137 0 54 L0 6 Z"
                                             }
                                         ],
-                                        "strokeGeometry": [],
+                                        "strokeGeometry": [
+                                            {
+                                                "windingRule": "NONZERO",
+                                                "data": "M6 2 L114 2 L114 -2 L6 -2 L6 2 Z M118 6 L118 54 L122 54 L122 6 L118 6 Z M114 58 L6 58 L6 62 L114 62 L114 58 Z M2 54 L2 6 L-2 6 L-2 54 L2 54 Z M6 58 C3.79086 58 2 56.2091 2 54 L-2 54 C-2 58.4183 1.58172 62 6 62 L6 58 Z M118 54 C118 56.2091 116.209 58 114 58 L114 62 C118.418 62 122 58.4183 122 54 L118 54 Z M114 2 C116.209 2 118 3.79086 118 6 L122 6 C122 1.58172 118.418 -2 114 -2 L114 2 Z M6 -2 C1.58172 -2 -2 1.58172 -2 6 L2 6 C2 3.79086 3.79086 2 6 2 L6 -2 Z"
+                                            }
+                                        ],
                                         "relativeTransform": [
                                             [
                                                 1,
@@ -1044,17 +1080,17 @@
                                             "horizontal": "SCALE",
                                             "vertical": "SCALE"
                                         },
-                                        "cornerRadius": 0,
+                                        "cornerRadius": 6,
                                         "cornerSmoothing": 0,
-                                        "topLeftRadius": 0,
-                                        "topRightRadius": 0,
-                                        "bottomLeftRadius": 0,
-                                        "bottomRightRadius": 0,
+                                        "topLeftRadius": 6,
+                                        "topRightRadius": 6,
+                                        "bottomLeftRadius": 6,
+                                        "bottomRightRadius": 6,
                                         "reactions": [],
-                                        "strokeTopWeight": 1,
-                                        "strokeBottomWeight": 1,
-                                        "strokeLeftWeight": 1,
-                                        "strokeRightWeight": 1,
+                                        "strokeTopWeight": 2,
+                                        "strokeBottomWeight": 2,
+                                        "strokeLeftWeight": 2,
+                                        "strokeRightWeight": 2,
                                         "playbackSettings": {
                                             "autoplay": true,
                                             "loop": true,
@@ -4615,9 +4651,22 @@
                                         }
                                     ],
                                     "fillStyleId": "",
-                                    "strokes": [],
+                                    "strokes": [
+                                        {
+                                            "type": "SOLID",
+                                            "visible": true,
+                                            "opacity": 1,
+                                            "blendMode": "NORMAL",
+                                            "color": {
+                                                "r": 0.125490203499794,
+                                                "g": 0.12941177189350128,
+                                                "b": 0.13333334028720856
+                                            },
+                                            "boundVariables": {}
+                                        }
+                                    ],
                                     "strokeStyleId": "",
-                                    "strokeWeight": 1,
+                                    "strokeWeight": 2,
                                     "strokeAlign": "INSIDE",
                                     "strokeJoin": "MITER",
                                     "dashPattern": [],
@@ -4626,10 +4675,15 @@
                                     "fillGeometry": [
                                         {
                                             "windingRule": "NONZERO",
-                                            "data": "M0 0 L120 0 L120 60 L0 60 L0 0 Z"
+                                            "data": "M0 6 C0 2.68629 2.68629 0 6 0 L114 0 C117.314 0 120 2.68629 120 6 L120 54 C120 57.3137 117.314 60 114 60 L6 60 C2.68629 60 0 57.3137 0 54 L0 6 Z"
                                         }
                                     ],
-                                    "strokeGeometry": [],
+                                    "strokeGeometry": [
+                                        {
+                                            "windingRule": "NONZERO",
+                                            "data": "M6 2 L114 2 L114 -2 L6 -2 L6 2 Z M118 6 L118 54 L122 54 L122 6 L118 6 Z M114 58 L6 58 L6 62 L114 62 L114 58 Z M2 54 L2 6 L-2 6 L-2 54 L2 54 Z M6 58 C3.79086 58 2 56.2091 2 54 L-2 54 C-2 58.4183 1.58172 62 6 62 L6 58 Z M118 54 C118 56.2091 116.209 58 114 58 L114 62 C118.418 62 122 58.4183 122 54 L118 54 Z M114 2 C116.209 2 118 3.79086 118 6 L122 6 C122 1.58172 118.418 -2 114 -2 L114 2 Z M6 -2 C1.58172 -2 -2 1.58172 -2 6 L2 6 C2 3.79086 3.79086 2 6 2 L6 -2 Z"
+                                        }
+                                    ],
                                     "relativeTransform": [
                                         [
                                             1,
@@ -4686,17 +4740,17 @@
                                         "horizontal": "SCALE",
                                         "vertical": "SCALE"
                                     },
-                                    "cornerRadius": 0,
+                                    "cornerRadius": 6,
                                     "cornerSmoothing": 0,
-                                    "topLeftRadius": 0,
-                                    "topRightRadius": 0,
-                                    "bottomLeftRadius": 0,
-                                    "bottomRightRadius": 0,
+                                    "topLeftRadius": 6,
+                                    "topRightRadius": 6,
+                                    "bottomLeftRadius": 6,
+                                    "bottomRightRadius": 6,
                                     "reactions": [],
-                                    "strokeTopWeight": 1,
-                                    "strokeBottomWeight": 1,
-                                    "strokeLeftWeight": 1,
-                                    "strokeRightWeight": 1,
+                                    "strokeTopWeight": 2,
+                                    "strokeBottomWeight": 2,
+                                    "strokeLeftWeight": 2,
+                                    "strokeRightWeight": 2,
                                     "playbackSettings": {
                                         "autoplay": true,
                                         "loop": true,
@@ -5006,7 +5060,7 @@
                                 "backgroundStyleId": "",
                                 "clipsContent": false,
                                 "guides": [],
-                                "expanded": false,
+                                "expanded": true,
                                 "constraints": {
                                     "horizontal": "MIN",
                                     "vertical": "MIN"
@@ -5099,9 +5153,22 @@
                                             }
                                         ],
                                         "fillStyleId": "",
-                                        "strokes": [],
+                                        "strokes": [
+                                            {
+                                                "type": "SOLID",
+                                                "visible": true,
+                                                "opacity": 1,
+                                                "blendMode": "NORMAL",
+                                                "color": {
+                                                    "r": 0.125490203499794,
+                                                    "g": 0.12941177189350128,
+                                                    "b": 0.13333334028720856
+                                                },
+                                                "boundVariables": {}
+                                            }
+                                        ],
                                         "strokeStyleId": "",
-                                        "strokeWeight": 1,
+                                        "strokeWeight": 2,
                                         "strokeAlign": "INSIDE",
                                         "strokeJoin": "MITER",
                                         "dashPattern": [],
@@ -5110,10 +5177,15 @@
                                         "fillGeometry": [
                                             {
                                                 "windingRule": "NONZERO",
-                                                "data": "M0 0 L120 0 L120 60 L0 60 L0 0 Z"
+                                                "data": "M0 6 C0 2.68629 2.68629 0 6 0 L114 0 C117.314 0 120 2.68629 120 6 L120 54 C120 57.3137 117.314 60 114 60 L6 60 C2.68629 60 0 57.3137 0 54 L0 6 Z"
                                             }
                                         ],
-                                        "strokeGeometry": [],
+                                        "strokeGeometry": [
+                                            {
+                                                "windingRule": "NONZERO",
+                                                "data": "M6 2 L114 2 L114 -2 L6 -2 L6 2 Z M118 6 L118 54 L122 54 L122 6 L118 6 Z M114 58 L6 58 L6 62 L114 62 L114 58 Z M2 54 L2 6 L-2 6 L-2 54 L2 54 Z M6 58 C3.79086 58 2 56.2091 2 54 L-2 54 C-2 58.4183 1.58172 62 6 62 L6 58 Z M118 54 C118 56.2091 116.209 58 114 58 L114 62 C118.418 62 122 58.4183 122 54 L118 54 Z M114 2 C116.209 2 118 3.79086 118 6 L122 6 C122 1.58172 118.418 -2 114 -2 L114 2 Z M6 -2 C1.58172 -2 -2 1.58172 -2 6 L2 6 C2 3.79086 3.79086 2 6 2 L6 -2 Z"
+                                            }
+                                        ],
                                         "relativeTransform": [
                                             [
                                                 1,
@@ -5170,17 +5242,17 @@
                                             "horizontal": "SCALE",
                                             "vertical": "SCALE"
                                         },
-                                        "cornerRadius": 0,
+                                        "cornerRadius": 6,
                                         "cornerSmoothing": 0,
-                                        "topLeftRadius": 0,
-                                        "topRightRadius": 0,
-                                        "bottomLeftRadius": 0,
-                                        "bottomRightRadius": 0,
+                                        "topLeftRadius": 6,
+                                        "topRightRadius": 6,
+                                        "bottomLeftRadius": 6,
+                                        "bottomRightRadius": 6,
                                         "reactions": [],
-                                        "strokeTopWeight": 1,
-                                        "strokeBottomWeight": 1,
-                                        "strokeLeftWeight": 1,
-                                        "strokeRightWeight": 1,
+                                        "strokeTopWeight": 2,
+                                        "strokeBottomWeight": 2,
+                                        "strokeLeftWeight": 2,
+                                        "strokeRightWeight": 2,
                                         "playbackSettings": {
                                             "autoplay": true,
                                             "loop": true,
@@ -5617,9 +5689,22 @@
                                         }
                                     ],
                                     "fillStyleId": "",
-                                    "strokes": [],
+                                    "strokes": [
+                                        {
+                                            "type": "SOLID",
+                                            "visible": true,
+                                            "opacity": 1,
+                                            "blendMode": "NORMAL",
+                                            "color": {
+                                                "r": 0.125490203499794,
+                                                "g": 0.12941177189350128,
+                                                "b": 0.13333334028720856
+                                            },
+                                            "boundVariables": {}
+                                        }
+                                    ],
                                     "strokeStyleId": "",
-                                    "strokeWeight": 1,
+                                    "strokeWeight": 2,
                                     "strokeAlign": "INSIDE",
                                     "strokeJoin": "MITER",
                                     "dashPattern": [],
@@ -5628,10 +5713,15 @@
                                     "fillGeometry": [
                                         {
                                             "windingRule": "NONZERO",
-                                            "data": "M0 0 L120 0 L120 60 L0 60 L0 0 Z"
+                                            "data": "M0 6 C0 2.68629 2.68629 0 6 0 L114 0 C117.314 0 120 2.68629 120 6 L120 54 C120 57.3137 117.314 60 114 60 L6 60 C2.68629 60 0 57.3137 0 54 L0 6 Z"
                                         }
                                     ],
-                                    "strokeGeometry": [],
+                                    "strokeGeometry": [
+                                        {
+                                            "windingRule": "NONZERO",
+                                            "data": "M6 2 L114 2 L114 -2 L6 -2 L6 2 Z M118 6 L118 54 L122 54 L122 6 L118 6 Z M114 58 L6 58 L6 62 L114 62 L114 58 Z M2 54 L2 6 L-2 6 L-2 54 L2 54 Z M6 58 C3.79086 58 2 56.2091 2 54 L-2 54 C-2 58.4183 1.58172 62 6 62 L6 58 Z M118 54 C118 56.2091 116.209 58 114 58 L114 62 C118.418 62 122 58.4183 122 54 L118 54 Z M114 2 C116.209 2 118 3.79086 118 6 L122 6 C122 1.58172 118.418 -2 114 -2 L114 2 Z M6 -2 C1.58172 -2 -2 1.58172 -2 6 L2 6 C2 3.79086 3.79086 2 6 2 L6 -2 Z"
+                                        }
+                                    ],
                                     "relativeTransform": [
                                         [
                                             1,
@@ -5688,17 +5778,17 @@
                                         "horizontal": "SCALE",
                                         "vertical": "SCALE"
                                     },
-                                    "cornerRadius": 0,
+                                    "cornerRadius": 6,
                                     "cornerSmoothing": 0,
-                                    "topLeftRadius": 0,
-                                    "topRightRadius": 0,
-                                    "bottomLeftRadius": 0,
-                                    "bottomRightRadius": 0,
+                                    "topLeftRadius": 6,
+                                    "topRightRadius": 6,
+                                    "bottomLeftRadius": 6,
+                                    "bottomRightRadius": 6,
                                     "reactions": [],
-                                    "strokeTopWeight": 1,
-                                    "strokeBottomWeight": 1,
-                                    "strokeLeftWeight": 1,
-                                    "strokeRightWeight": 1,
+                                    "strokeTopWeight": 2,
+                                    "strokeBottomWeight": 2,
+                                    "strokeLeftWeight": 2,
+                                    "strokeRightWeight": 2,
                                     "playbackSettings": {
                                         "autoplay": true,
                                         "loop": true,
@@ -6008,7 +6098,7 @@
                                 "backgroundStyleId": "",
                                 "clipsContent": false,
                                 "guides": [],
-                                "expanded": false,
+                                "expanded": true,
                                 "constraints": {
                                     "horizontal": "MIN",
                                     "vertical": "MIN"
@@ -6101,9 +6191,22 @@
                                             }
                                         ],
                                         "fillStyleId": "",
-                                        "strokes": [],
+                                        "strokes": [
+                                            {
+                                                "type": "SOLID",
+                                                "visible": true,
+                                                "opacity": 1,
+                                                "blendMode": "NORMAL",
+                                                "color": {
+                                                    "r": 0.125490203499794,
+                                                    "g": 0.12941177189350128,
+                                                    "b": 0.13333334028720856
+                                                },
+                                                "boundVariables": {}
+                                            }
+                                        ],
                                         "strokeStyleId": "",
-                                        "strokeWeight": 1,
+                                        "strokeWeight": 2,
                                         "strokeAlign": "INSIDE",
                                         "strokeJoin": "MITER",
                                         "dashPattern": [],
@@ -6112,10 +6215,15 @@
                                         "fillGeometry": [
                                             {
                                                 "windingRule": "NONZERO",
-                                                "data": "M0 0 L120 0 L120 60 L0 60 L0 0 Z"
+                                                "data": "M0 6 C0 2.68629 2.68629 0 6 0 L114 0 C117.314 0 120 2.68629 120 6 L120 54 C120 57.3137 117.314 60 114 60 L6 60 C2.68629 60 0 57.3137 0 54 L0 6 Z"
                                             }
                                         ],
-                                        "strokeGeometry": [],
+                                        "strokeGeometry": [
+                                            {
+                                                "windingRule": "NONZERO",
+                                                "data": "M6 2 L114 2 L114 -2 L6 -2 L6 2 Z M118 6 L118 54 L122 54 L122 6 L118 6 Z M114 58 L6 58 L6 62 L114 62 L114 58 Z M2 54 L2 6 L-2 6 L-2 54 L2 54 Z M6 58 C3.79086 58 2 56.2091 2 54 L-2 54 C-2 58.4183 1.58172 62 6 62 L6 58 Z M118 54 C118 56.2091 116.209 58 114 58 L114 62 C118.418 62 122 58.4183 122 54 L118 54 Z M114 2 C116.209 2 118 3.79086 118 6 L122 6 C122 1.58172 118.418 -2 114 -2 L114 2 Z M6 -2 C1.58172 -2 -2 1.58172 -2 6 L2 6 C2 3.79086 3.79086 2 6 2 L6 -2 Z"
+                                            }
+                                        ],
                                         "relativeTransform": [
                                             [
                                                 1,
@@ -6172,17 +6280,17 @@
                                             "horizontal": "SCALE",
                                             "vertical": "SCALE"
                                         },
-                                        "cornerRadius": 0,
+                                        "cornerRadius": 6,
                                         "cornerSmoothing": 0,
-                                        "topLeftRadius": 0,
-                                        "topRightRadius": 0,
-                                        "bottomLeftRadius": 0,
-                                        "bottomRightRadius": 0,
+                                        "topLeftRadius": 6,
+                                        "topRightRadius": 6,
+                                        "bottomLeftRadius": 6,
+                                        "bottomRightRadius": 6,
                                         "reactions": [],
-                                        "strokeTopWeight": 1,
-                                        "strokeBottomWeight": 1,
-                                        "strokeLeftWeight": 1,
-                                        "strokeRightWeight": 1,
+                                        "strokeTopWeight": 2,
+                                        "strokeBottomWeight": 2,
+                                        "strokeLeftWeight": 2,
+                                        "strokeRightWeight": 2,
                                         "playbackSettings": {
                                             "autoplay": true,
                                             "loop": true,
@@ -6802,9 +6910,22 @@
                                         }
                                     ],
                                     "fillStyleId": "",
-                                    "strokes": [],
+                                    "strokes": [
+                                        {
+                                            "type": "SOLID",
+                                            "visible": true,
+                                            "opacity": 1,
+                                            "blendMode": "NORMAL",
+                                            "color": {
+                                                "r": 0.125490203499794,
+                                                "g": 0.12941177189350128,
+                                                "b": 0.13333334028720856
+                                            },
+                                            "boundVariables": {}
+                                        }
+                                    ],
                                     "strokeStyleId": "",
-                                    "strokeWeight": 1,
+                                    "strokeWeight": 2,
                                     "strokeAlign": "INSIDE",
                                     "strokeJoin": "MITER",
                                     "dashPattern": [],
@@ -6813,10 +6934,15 @@
                                     "fillGeometry": [
                                         {
                                             "windingRule": "NONZERO",
-                                            "data": "M0 0 L120 0 L120 60 L0 60 L0 0 Z"
+                                            "data": "M0 6 C0 2.68629 2.68629 0 6 0 L114 0 C117.314 0 120 2.68629 120 6 L120 54 C120 57.3137 117.314 60 114 60 L6 60 C2.68629 60 0 57.3137 0 54 L0 6 Z"
                                         }
                                     ],
-                                    "strokeGeometry": [],
+                                    "strokeGeometry": [
+                                        {
+                                            "windingRule": "NONZERO",
+                                            "data": "M6 2 L114 2 L114 -2 L6 -2 L6 2 Z M118 6 L118 54 L122 54 L122 6 L118 6 Z M114 58 L6 58 L6 62 L114 62 L114 58 Z M2 54 L2 6 L-2 6 L-2 54 L2 54 Z M6 58 C3.79086 58 2 56.2091 2 54 L-2 54 C-2 58.4183 1.58172 62 6 62 L6 58 Z M118 54 C118 56.2091 116.209 58 114 58 L114 62 C118.418 62 122 58.4183 122 54 L118 54 Z M114 2 C116.209 2 118 3.79086 118 6 L122 6 C122 1.58172 118.418 -2 114 -2 L114 2 Z M6 -2 C1.58172 -2 -2 1.58172 -2 6 L2 6 C2 3.79086 3.79086 2 6 2 L6 -2 Z"
+                                        }
+                                    ],
                                     "relativeTransform": [
                                         [
                                             1,
@@ -6873,17 +6999,17 @@
                                         "horizontal": "SCALE",
                                         "vertical": "SCALE"
                                     },
-                                    "cornerRadius": 0,
+                                    "cornerRadius": 6,
                                     "cornerSmoothing": 0,
-                                    "topLeftRadius": 0,
-                                    "topRightRadius": 0,
-                                    "bottomLeftRadius": 0,
-                                    "bottomRightRadius": 0,
+                                    "topLeftRadius": 6,
+                                    "topRightRadius": 6,
+                                    "bottomLeftRadius": 6,
+                                    "bottomRightRadius": 6,
                                     "reactions": [],
-                                    "strokeTopWeight": 1,
-                                    "strokeBottomWeight": 1,
-                                    "strokeLeftWeight": 1,
-                                    "strokeRightWeight": 1,
+                                    "strokeTopWeight": 2,
+                                    "strokeBottomWeight": 2,
+                                    "strokeLeftWeight": 2,
+                                    "strokeRightWeight": 2,
                                     "playbackSettings": {
                                         "autoplay": true,
                                         "loop": true,
@@ -7193,7 +7319,7 @@
                                 "backgroundStyleId": "",
                                 "clipsContent": false,
                                 "guides": [],
-                                "expanded": false,
+                                "expanded": true,
                                 "constraints": {
                                     "horizontal": "MIN",
                                     "vertical": "MIN"
@@ -7286,9 +7412,22 @@
                                             }
                                         ],
                                         "fillStyleId": "",
-                                        "strokes": [],
+                                        "strokes": [
+                                            {
+                                                "type": "SOLID",
+                                                "visible": true,
+                                                "opacity": 1,
+                                                "blendMode": "NORMAL",
+                                                "color": {
+                                                    "r": 0.125490203499794,
+                                                    "g": 0.12941177189350128,
+                                                    "b": 0.13333334028720856
+                                                },
+                                                "boundVariables": {}
+                                            }
+                                        ],
                                         "strokeStyleId": "",
-                                        "strokeWeight": 1,
+                                        "strokeWeight": 2,
                                         "strokeAlign": "INSIDE",
                                         "strokeJoin": "MITER",
                                         "dashPattern": [],
@@ -7297,10 +7436,15 @@
                                         "fillGeometry": [
                                             {
                                                 "windingRule": "NONZERO",
-                                                "data": "M0 0 L120 0 L120 60 L0 60 L0 0 Z"
+                                                "data": "M0 6 C0 2.68629 2.68629 0 6 0 L114 0 C117.314 0 120 2.68629 120 6 L120 54 C120 57.3137 117.314 60 114 60 L6 60 C2.68629 60 0 57.3137 0 54 L0 6 Z"
                                             }
                                         ],
-                                        "strokeGeometry": [],
+                                        "strokeGeometry": [
+                                            {
+                                                "windingRule": "NONZERO",
+                                                "data": "M6 2 L114 2 L114 -2 L6 -2 L6 2 Z M118 6 L118 54 L122 54 L122 6 L118 6 Z M114 58 L6 58 L6 62 L114 62 L114 58 Z M2 54 L2 6 L-2 6 L-2 54 L2 54 Z M6 58 C3.79086 58 2 56.2091 2 54 L-2 54 C-2 58.4183 1.58172 62 6 62 L6 58 Z M118 54 C118 56.2091 116.209 58 114 58 L114 62 C118.418 62 122 58.4183 122 54 L118 54 Z M114 2 C116.209 2 118 3.79086 118 6 L122 6 C122 1.58172 118.418 -2 114 -2 L114 2 Z M6 -2 C1.58172 -2 -2 1.58172 -2 6 L2 6 C2 3.79086 3.79086 2 6 2 L6 -2 Z"
+                                            }
+                                        ],
                                         "relativeTransform": [
                                             [
                                                 1,
@@ -7357,17 +7501,17 @@
                                             "horizontal": "SCALE",
                                             "vertical": "SCALE"
                                         },
-                                        "cornerRadius": 0,
+                                        "cornerRadius": 6,
                                         "cornerSmoothing": 0,
-                                        "topLeftRadius": 0,
-                                        "topRightRadius": 0,
-                                        "bottomLeftRadius": 0,
-                                        "bottomRightRadius": 0,
+                                        "topLeftRadius": 6,
+                                        "topRightRadius": 6,
+                                        "bottomLeftRadius": 6,
+                                        "bottomRightRadius": 6,
                                         "reactions": [],
-                                        "strokeTopWeight": 1,
-                                        "strokeBottomWeight": 1,
-                                        "strokeLeftWeight": 1,
-                                        "strokeRightWeight": 1,
+                                        "strokeTopWeight": 2,
+                                        "strokeBottomWeight": 2,
+                                        "strokeLeftWeight": 2,
+                                        "strokeRightWeight": 2,
                                         "playbackSettings": {
                                             "autoplay": true,
                                             "loop": true,
@@ -8418,7 +8562,7 @@
                     "backgroundStyleId": "",
                     "clipsContent": false,
                     "guides": [],
-                    "expanded": false,
+                    "expanded": true,
                     "constraints": {
                         "horizontal": "MIN",
                         "vertical": "MIN"
@@ -8511,9 +8655,22 @@
                                 }
                             ],
                             "fillStyleId": "",
-                            "strokes": [],
+                            "strokes": [
+                                {
+                                    "type": "SOLID",
+                                    "visible": true,
+                                    "opacity": 1,
+                                    "blendMode": "NORMAL",
+                                    "color": {
+                                        "r": 0.125490203499794,
+                                        "g": 0.12941177189350128,
+                                        "b": 0.13333334028720856
+                                    },
+                                    "boundVariables": {}
+                                }
+                            ],
                             "strokeStyleId": "",
-                            "strokeWeight": 1,
+                            "strokeWeight": 2,
                             "strokeAlign": "INSIDE",
                             "strokeJoin": "MITER",
                             "dashPattern": [],
@@ -8522,10 +8679,15 @@
                             "fillGeometry": [
                                 {
                                     "windingRule": "NONZERO",
-                                    "data": "M0 0 L120 0 L120 60 L0 60 L0 0 Z"
+                                    "data": "M0 6 C0 2.68629 2.68629 0 6 0 L114 0 C117.314 0 120 2.68629 120 6 L120 54 C120 57.3137 117.314 60 114 60 L6 60 C2.68629 60 0 57.3137 0 54 L0 6 Z"
                                 }
                             ],
-                            "strokeGeometry": [],
+                            "strokeGeometry": [
+                                {
+                                    "windingRule": "NONZERO",
+                                    "data": "M6 2 L114 2 L114 -2 L6 -2 L6 2 Z M118 6 L118 54 L122 54 L122 6 L118 6 Z M114 58 L6 58 L6 62 L114 62 L114 58 Z M2 54 L2 6 L-2 6 L-2 54 L2 54 Z M6 58 C3.79086 58 2 56.2091 2 54 L-2 54 C-2 58.4183 1.58172 62 6 62 L6 58 Z M118 54 C118 56.2091 116.209 58 114 58 L114 62 C118.418 62 122 58.4183 122 54 L118 54 Z M114 2 C116.209 2 118 3.79086 118 6 L122 6 C122 1.58172 118.418 -2 114 -2 L114 2 Z M6 -2 C1.58172 -2 -2 1.58172 -2 6 L2 6 C2 3.79086 3.79086 2 6 2 L6 -2 Z"
+                                }
+                            ],
                             "relativeTransform": [
                                 [
                                     1,
@@ -8582,17 +8744,17 @@
                                 "horizontal": "SCALE",
                                 "vertical": "SCALE"
                             },
-                            "cornerRadius": 0,
+                            "cornerRadius": 6,
                             "cornerSmoothing": 0,
-                            "topLeftRadius": 0,
-                            "topRightRadius": 0,
-                            "bottomLeftRadius": 0,
-                            "bottomRightRadius": 0,
+                            "topLeftRadius": 6,
+                            "topRightRadius": 6,
+                            "bottomLeftRadius": 6,
+                            "bottomRightRadius": 6,
                             "reactions": [],
-                            "strokeTopWeight": 1,
-                            "strokeBottomWeight": 1,
-                            "strokeLeftWeight": 1,
-                            "strokeRightWeight": 1,
+                            "strokeTopWeight": 2,
+                            "strokeBottomWeight": 2,
+                            "strokeLeftWeight": 2,
+                            "strokeRightWeight": 2,
                             "playbackSettings": {
                                 "autoplay": true,
                                 "loop": true,

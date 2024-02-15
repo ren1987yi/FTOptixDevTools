@@ -12,7 +12,7 @@ using System.IO;
 Console.WriteLine("Hello, World!");
 
 var file = @"../../../../../src/Test/test/Test1.plugin2.json";
-
+var fig =  @"../../../../../src/Test/test/Test1.fig";
 
 
 if (1 == 1)
@@ -74,7 +74,9 @@ if (1 == 1)
 
 
     }
-}else{
+}
+else
+{
 
 
 
@@ -82,5 +84,5 @@ if (1 == 1)
 
 
 
-UIGenerator.Generator.ConvertForFile(null,UiSourceType.Figma,file);
+    UIGenerator.Generator.ConvertForFigmaFile(null,  file,fig);
 }
